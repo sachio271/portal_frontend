@@ -7,11 +7,13 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { PostLoginMutation } from "../api/auth/login";
 import { useAuthStore } from "../state/authState";
+import {useNavigate} from "react-router-dom";
 
 
 export function Login() {
   const authStore = useAuthStore((state) => state.auth);
   const loginAuthStore = useAuthStore((state) => state.login);
+  const navigate = useNavigate();
   const { handleSubmit, register } = useForm({
     defaultValues: {
       username: "",
@@ -30,6 +32,9 @@ export function Login() {
       },
       onSuccess: (data) => {
         loginAuthStore(data);
+        //set refresh tokennya belum
+
+        navigate("/admin/post-events");
       }
     });
   }

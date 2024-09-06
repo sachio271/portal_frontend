@@ -1,8 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "..";
 
-const createEventPost = async ({ title, subtitle, description, img, src }) => {
-    const response = await axiosInstance.post("/post-events", { title, subtitle, description, img, src });
+const createEventPost = async ([data]) => {
+    const response = await axiosInstance.post("/post-events", data, {
+        headers: {
+            "Content-Type" : "multipart/form-data"
+            // "Authorization" : "Bearer " + token
+        }
+    });
     return response.data;
 }
 
